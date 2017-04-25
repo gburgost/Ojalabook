@@ -4,7 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :primer_nombre, :primer_apellido, :nombre_perfil,
-                  :email, :encrypted_password
+  # attr_accessor :primer_nombre, :primer_apellido, :nombre_perfil,
+  #           :email, :password, :password_confirmation 
 
+  has_many :statuses
+
+  def nombre_completo
+    primer_nombre + " " + primer_apellido
+  end
 end

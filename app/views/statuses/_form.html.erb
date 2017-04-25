@@ -1,10 +1,10 @@
-<%= form_for(status) do |f| %>
-  <% if status.errors.any? %>
+<%= simple_form_for(@status, html: { class: "form-horizontal" }) do |f| %>
+  <% if @status.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(status.errors.count, "error") %> prohibited this status from being saved:</h2>
+      <h2><%= pluralize(@status.errors.count, "error") %> prohibited this status from being saved:</h2>
 
       <ul>
-      <% status.errors.full_messages.each do |message| %>
+      <% @status.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,16 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :nombre %>
-    <%= f.text_field :nombre %>
+    <%= f.input :user_id, collection: User.all, label_method: :nombre_completo %>
+    <%= f.input :contenido %>
   </div>
 
-  <div class="field">
-    <%= f.label :contenido %>
-    <%= f.text_area :contenido %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>

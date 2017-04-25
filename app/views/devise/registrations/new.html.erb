@@ -4,7 +4,7 @@
   <%= devise_error_messages! %>
   <div class="field">
     <%= f.label :primer_nombre %><br />
-    <%= f.text_field :primer_nombre %>
+    <%= f.text_field :primer_nombre, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :primer_apellido %><br />
@@ -17,7 +17,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email %>
   </div>
 
   <div class="field">
