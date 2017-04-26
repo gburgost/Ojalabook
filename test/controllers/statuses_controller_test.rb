@@ -16,17 +16,25 @@ class StatusesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
+  test "debe iniciar sesion para hacer un post" do
+    sign_in users(:ojala)
+    post :create, status: {contenido: "hola mundo"}
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
   test "deberia mostrar la nueva pagina cuando inicio sesion" do
-    sign_in users(:GBurgos)
+    sign_in users(:ojala)
     get :new
     assert_response :success
+    assert_redirected_to timeline_path
   end
 
   test "should create status" do
+    sign_in users(:ojala)
     assert_difference('Status.count') do
       post statuses_url, params: { status: { contenido: @status.contenido } }
     end
-
     assert_redirected_to status_url(Status.last)
   end
 

@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav pull-right">
         <% if user_signed_in? %>
           <li><%= link_to current_user.nombre_completo, edit_user_registration_path %></li>
-          <li><%= link_to "Cerrar sesión", destruir_path, method: :delete %></li>
+          <li><%= link_to "Cerrar sesión", destruir_path %></li>
         <% else %>
           <li><%= link_to "Registrar", registrar_path %></li>
           <li><%= link_to "Iniciar Sesión", comenzar_path %></li>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'perfil/show'
+
   devise_for :users
 
   devise_scope :user do 
@@ -10,5 +12,7 @@ Rails.application.routes.draw do
   resources :statuses
   get 'timeline', to: 'statuses#index', as: :timeline
   root to: 'statuses#index'
+
+  get '/:id', to: 'perfil#show'
 
 end
