@@ -9,6 +9,18 @@ class User < ApplicationRecord
 
   has_many :statuses
 
+  validates :primer_nombre, presence: true
+  validates :primer_apellido, presence: true
+  validates :nombre_perfil, presence: true,
+                            uniqueness: true,
+                            format: {
+                              with: /\A[a-zA-Z0-9_-]+\z/,
+                              message: 'Debe estar formateado correctamente'
+                            }
+
+    #                         validates :legacy_code, format: { with: /\A[a-zA-Z0-9_-]+\z/,
+    # message: "only allows letters" }
+
   def nombre_completo
     primer_nombre + " " + primer_apellido
   end

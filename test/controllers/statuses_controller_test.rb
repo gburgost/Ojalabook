@@ -10,14 +10,21 @@ class StatusesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
+  test "debe ser redirigido cuando no ha iniciado sesion" do
     get new_status_url
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
+  test "deberia mostrar la nueva pagina cuando inicio sesion" do
+    sign_in users(:GBurgos)
+    get :new
     assert_response :success
   end
 
   test "should create status" do
     assert_difference('Status.count') do
-      post statuses_url, params: { status: { contenido: @status.contenido, nombre: @status.nombre } }
+      post statuses_url, params: { status: { contenido: @status.contenido } }
     end
 
     assert_redirected_to status_url(Status.last)
@@ -34,7 +41,7 @@ class StatusesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update status" do
-    patch status_url(@status), params: { status: { contenido: @status.contenido, nombre: @status.nombre } }
+    patch status_url(@status), params: { status: { contenido: @status.contenido } }
     assert_redirected_to status_url(@status)
   end
 
