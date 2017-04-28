@@ -13,6 +13,5 @@ Rails.application.routes.draw do
   get 'timeline', to: 'statuses#index', as: :timeline
   root to: 'statuses#index'
 
-  get '/:id', to: 'perfil#show'
-
+  get ':id', to: 'perfil#show', as: 'perfil'
 end

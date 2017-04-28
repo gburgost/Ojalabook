@@ -1,14 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nombre:</strong>
-   <%= @status.user.nombre_completo %>
+  <%= image_tag(@status.user.avatar.url(:thumb), :class => 'avatar') %>
+  <%= @status.user.nombre_completo %>
 </p>
 
 <p>
   <strong>Contenido:</strong>
   <%= @status.contenido %>
 </p>
+<p>
+  <% if @status.imagen.url(:medium) == '/imagens/medium/missing.png' %>
+      <p>No hay imagen</p>
+    <% else %>
+        <%= image_tag(@status.imagen.url(:medium)) %>
+    <% end %>
+</p>
+<% if user_signed_in? %>
+  <% if current_user.id == @status.user.id %>
+    <%= link_to 'Editar', edit_status_path(@status) %> |  
+  <% end %>
+<% end %>
 
-<%= link_to 'Edit', edit_status_path(@status) %> |
-<%= link_to 'Back', statuses_path %>
+<%= link_to 'Atrás', url_for(:back) %>

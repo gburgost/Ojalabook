@@ -1,13 +1,20 @@
 <div class="page-header">
-  <h1><%= @user.nombre_completo %></h1>
+  <h1>
+    <figure class="avatar-contenedor">  <%= image_tag(current_user.avatar.url(:medium), :class => 'avatar-medium') %></figure>
+    <%= @user.nombre_completo %>
+  </h1>
 </div>
 
 <% if @statuses %>
-  <% @statuses.each do |status| %>
-  <div class="well">
+  <% @statuses.order("updated_at desc").each do |status| %>
+  <div class="well status">
     <%= status.contenido %>
     <hr>
-    Hace <%= link_to time_ago_in_words(status.created_at), status_path(status) %>
+    Hace <%= link_to time_ago_in_words(status.updated_at), status_path(status) %>
+    <span class="admin">
+        | <%= link_to "Editar", edit_status_path(status) %> | 
+        <%= link_to "Borrar", status, method: :delete, data: {confirm: "Estás seguro que quieres borrar este estado?"} %>
+      </span>
   </div>
   <% end %>
 <% end %>

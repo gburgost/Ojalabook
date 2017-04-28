@@ -4,20 +4,23 @@
 
 <%= link_to "Crear un nuevo post", new_status_path, class: "btn btn-success" %>
 
-<% @statuses.each do |status| %>
+<% @statuses.order("created_at desc").each do |status| %>
   <div class="status">
-    <strong><%= status.user.nombre_completo %></strong>
-    <p><%= status.contenido %></p>
-    <div>
-      <%= link_to "Hace " + time_ago_in_words(status.created_at), status %>
-      <span class="admin">
-        | <%= link_to "Editar", edit_status_path(status) %> | 
-        <%= link_to "Borrar", status, method: :delete, data: {confirm: "Estás seguro que quieres borrar este estado?"} %>
-      </span>
+    <div class="contenido">
+      <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
+      <strong><%= status.user.nombre_completo %></strong>
+      <p><%= status.contenido %></p>
+      <div>
+        <%= link_to "Hace " + time_ago_in_words(status.created_at), status %>
+      </div>
+    </div>
+    <div class="contenido-image">
+    <% if status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
+      <p>No hay imagen</p>
+    <% else %>
+        <%= image_tag(status.imagen.url(:thumb)) %>
+    <% end %>
     </div>
   </div>
-
-
-
-
 <% end %>
+<%= paginate(@statuses) %>

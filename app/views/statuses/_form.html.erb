@@ -12,7 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.input :user_id, collection: User.all, label_method: :nombre_completo %>
+    <%= f.input :user_id, label_html: {class: 'hidden'}, input_html: {value: current_user.id, class: 'hidden'}%>
+    
+    <%= f.input :imagen %>
+    
+    <% if @status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
+      <p>No hay imagen</p>
+    <% else %>
+        <%= image_tag(@status.imagen.url(:thumb)) %>
+    <% end %>
+
     <%= f.input :contenido %>
   </div>
 
@@ -20,3 +29,5 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+
+
