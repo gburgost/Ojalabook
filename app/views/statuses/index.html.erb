@@ -7,7 +7,10 @@
 <% @statuses.order("created_at desc").each do |status| %>
   <div class="status">
     <div class="contenido">
-      <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
+      <figure class="avatar-contenedor avatar-user">
+        <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
+      </figure>
+      
       <strong><%= status.user.nombre_completo %></strong>
       <p><%= status.contenido %></p>
       <div>

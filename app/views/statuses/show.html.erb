@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <%= image_tag(@status.user.avatar.url(:thumb), :class => 'avatar') %>
+  <figure class="avatar-contenedor avatar-user">
+    <%= image_tag(@status.user.avatar.url(:thumb), :class => 'avatar') %>
+  </figure> 
   <%= @status.user.nombre_completo %>
 </p>
 
@@ -22,4 +24,4 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Atrás', url_for(:back) %>
+<%= link_to 'Atrás', timeline_path %>

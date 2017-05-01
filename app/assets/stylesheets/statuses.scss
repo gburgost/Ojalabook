@@ -34,8 +34,8 @@
 }
 
 .avatar {
-  width: 20px;
   border-radius: 100%;
+  vertical-align: top;
 }
 .avatar-contenedor{
   display: inline-block;
@@ -50,6 +50,7 @@
   text-align: center;
   img { width: 100% }
 }
-img {
-  max-width: 100%;
+.avatar-contenedor.avatar-user {
+  height: 20px;
+  width: 20px;
 }
