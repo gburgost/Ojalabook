@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'perfil/show'
 
-  devise_for :users
+  devise_for :users, controllers: { confirmations: 'confirmations' }
 
   devise_scope :user do 
     get 'registrar', to: 'devise/registrations#new', as: :registrar
