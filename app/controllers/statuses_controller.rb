@@ -1,4 +1,5 @@
 class StatusesController < ApplicationController
+  load_and_authorize_resource except: [:create]
   before_filter :authenticate_user!, only: [:new, :create]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
 
@@ -6,7 +7,7 @@ class StatusesController < ApplicationController
   # GET /statuses.json
   def index
     # @statuses = Status.all
-     @statuses = Status.order('created_at DESC').page(params[:page]).per(5)
+     @statuses = Status.order('created_at DESC').page(params[:page]).per(4)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -32,30 +33,27 @@ class StatusesController < ApplicationController
   # POST /statuses.json
   def create
     @status = Status.new(status_params)
+    @status.photos = params[:photos]
 
-    respond_to do |format|
       if @status.save
-        format.html { redirect_to @status, notice: 'Status was successfully created.' }
-        format.json { render :show, status: :created, location: @status }
+        redirect_to @status
       else
-        format.html { render :new }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /statuses/1
   # PATCH/PUT /statuses/1.json
   def update
-    respond_to do |format|
-      if @status.update(status_params)
-        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-        format.json { render :show, status: :ok, location: @status }
+
+    @status.update(status_params)
+    @status.photos = params[:photos]
+
+    if @status.save
+        redirect_to @status
       else
-        format.html { render :edit }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   # DELETE /statuses/1
@@ -76,6 +74,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:user_id, :contenido, :imagen)
+      params.require(:status).permit(:user_id, :contenido, :imagen, :photos)
     end
 end

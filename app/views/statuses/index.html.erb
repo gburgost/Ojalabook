@@ -1,29 +1,38 @@
 <div class="page-header">
   <h1>Todos los estados</h1>
-</div>
+  <!-- <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> -->
 
-<%= link_to "Crear un nuevo post", new_status_path, class: "btn btn-success" %>
+  <%= link_to "Crear un nuevo post", new_status_path, class: "btn btn-success" %>
+  <%= form_tag(search_controller_search_path, method: :get) do |f| %>
+    <%= text_field_tag :contenido %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+</div>
 
 <% @statuses.order("created_at desc").each do |status| %>
   <div class="status">
-    <div class="contenido">
-      <figure class="avatar-contenedor avatar-user">
-        <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
-      </figure>
-      
-      <strong><%= status.user.nombre_completo %></strong>
-      <p><%= status.contenido %></p>
-      <div>
-        <%= link_to "Hace " + time_ago_in_words(status.created_at), status %>
-      </div>
-    </div>
     <div class="contenido-image">
-    <% if status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
-      <p>No hay imagen</p>
-    <% else %>
-        <%= image_tag(status.imagen.url(:thumb)) %>
-    <% end %>
+      <% if status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
+        <p>No hay imagen</p>
+      <% else %>
+      <figure class="container-image">
+        <%= image_tag(status.imagen.url(:medium)) %>
+        <figcaption class="container-figcaption">
+          <figure class="avatar-contenedor avatar-user">
+            <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
+          </figure>
+          
+          <strong><%= status.user.nombre_completo %></strong>
+          <p><%= status.contenido %></p>
+          <div>
+            <%= link_to "Hace " + time_ago_in_words(status.created_at), status %>
+          </div>
+        </figcaption>
+      </figure>
+      <% end %>
     </div>
   </div>
 <% end %>
-<%= paginate(@statuses) %>
+<div class="paginacion">
+  <%= paginate(@statuses) %>  
+</div>

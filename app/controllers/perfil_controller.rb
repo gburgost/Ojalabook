@@ -1,4 +1,5 @@
 class PerfilController < ApplicationController
+
   def show
     @user = User.find_by_nombre_perfil(params[:id])
     if @user

@@ -14,3 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+jQuery(document).ready(function($) {
+  $('.my-slider').unslider({
+    autoplay: true,
+    infinite: true
+  });
+});

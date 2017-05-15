@@ -14,6 +14,7 @@ gem 'pg', group: :production
 
 gem 'devise'
 gem 'simple_form'
+gem 'cancan'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

@@ -1,3 +1,14 @@
+<section class="portada" style="background-image: url(<%=@status.imagen.url(:original)%>);">
+
+</section>
+
+
+
+
+
+
+
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -11,13 +22,29 @@
   <strong>Contenido:</strong>
   <%= @status.contenido %>
 </p>
-<p>
+<div class="img-principal">
   <% if @status.imagen.url(:medium) == '/imagens/medium/missing.png' %>
       <p>No hay imagen</p>
     <% else %>
         <%= image_tag(@status.imagen.url(:medium)) %>
     <% end %>
-</p>
+</div>
+<% if @status.photos.empty? %>
+  <p>Sin Galeria</p>
+  <% else %>
+  <div class="slider">
+    <div class="my-slider">
+      <ul>
+        <% @status.photos.each do |photo| %>
+          <li><%= image_tag photo.image.url(:original) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+
+
 <% if user_signed_in? %>
   <% if current_user.id == @status.user.id %>
     <%= link_to 'Editar', edit_status_path(@status) %> |  

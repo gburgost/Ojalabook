@@ -1,0 +1,47 @@
+
+<div class="page-header">
+  <h1>
+    Lista de usuarios
+  </h1>
+</div>
+
+<% if @users %>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>
+            Nombre
+          </th>
+          <th>
+            Apellido
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Username
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th><%= user.primer_nombre %></th>
+          <th><%= user.primer_apellido %></th>
+          <th><%= user.email %></th>
+          <th><%= user.nombre_perfil %></th>
+          <th>
+            <% if user.role == "manager" %>
+              <button class="btn btn-success"><%= user.role %></button>
+            <% else %> 
+              <button class="btn btn-primary"><%= user.role %></button>
+            <% end %>  
+          </th>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+<% end %>

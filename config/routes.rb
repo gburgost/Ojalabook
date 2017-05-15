@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  get 'search_controller/search'
+
+  resources :photos
   get 'perfil/show'
+  get 'list_users/show'
 
   devise_for :users, controllers: { confirmations: 'confirmations' }
 
@@ -12,6 +16,8 @@ Rails.application.routes.draw do
   resources :statuses
   get 'timeline', to: 'statuses#index', as: :timeline
   root to: 'statuses#index'
+
+  get 'usuarios', to: 'list_users#show', as: :usuarios
 
   get ':id', to: 'perfil#show', as: 'perfil'
 end

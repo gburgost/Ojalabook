@@ -48,7 +48,12 @@
                       <%= link_to 'Perfil', perfil_path(current_user.nombre_perfil) %>
                     </li>
                     <li>
-                      <%= link_to 'Ajustes', edit_user_registration_path %>
+                    <% if can? :show, @users %>
+                       <%= link_to 'Lista de usuarios', usuarios_path %>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to 'Editar usuario', edit_user_registration_path %>
                     </li>
                     <li>
                       <%= link_to "Cerrar sesión", destruir_path %>

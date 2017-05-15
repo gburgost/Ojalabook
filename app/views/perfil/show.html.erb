@@ -8,13 +8,30 @@
 <% if @statuses %>
   <% @statuses.order("updated_at desc").each do |status| %>
   <div class="well status">
-    <%= status.contenido %>
+    <div class="contenido">
+      <%= status.contenido %>
+    </div>
+    <div class="contenido-image">
+      <% if status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
+        <p>No hay imagen</p>
+      <% else %>
+          <%= image_tag(status.imagen.url(:thumb)) %>
+      <% end %>
+    </div>
     <hr>
     Hace <%= link_to time_ago_in_words(status.updated_at), status_path(status) %>
     <span class="admin">
         | <%= link_to "Editar", edit_status_path(status) %> | 
-        <%= link_to "Borrar", status, method: :delete, data: {confirm: "Estás seguro que quieres borrar este estado?"} %>
-      </span>
+        
+      <% if can? :destroy, status %>
+       <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+       status_path(status),
+       :method => :delete,
+       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+       :class => 'btn btn-mini btn-danger' %>
+      <% end %>
+    </span>
   </div>
+
   <% end %>
 <% end %>
