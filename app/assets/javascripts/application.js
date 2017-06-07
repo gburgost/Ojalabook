@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 $(function () {
@@ -22,6 +21,10 @@ $(function () {
 jQuery(document).ready(function($) {
   $('.my-slider').unslider({
     autoplay: true,
-    infinite: true
+    infinite: true,
+    arrows: {
+      prev: '<a class="unslider-arrow prev glyphicon glyphicon-chevron-left"></a>',
+      next: '<a class="unslider-arrow next glyphicon glyphicon-chevron-right"></a>',
+    }
   });
 });

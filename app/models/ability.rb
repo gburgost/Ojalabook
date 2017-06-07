@@ -6,8 +6,9 @@ class Ability
     if user.role == "manager"
         can :manage, :all
     elsif user.role == "seller"
-        alias_action :create, :read, :update, :to => :cru
-        can :cru, Status        
+        alias_action :create, :read, :update, :destroy, :to => :cru
+        can :cru, Status
+        can :cru, Photo       
     end
 
     # Define abilities for the passed in user here. For example:

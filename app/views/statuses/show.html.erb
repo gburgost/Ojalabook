@@ -1,54 +1,47 @@
 <section class="portada" style="background-image: url(<%=@status.imagen.url(:original)%>);">
 
+  <div class="header">
+    <figure class="avatar-contenedor avatar-userStatus">
+      <%= image_tag(@status.user.avatar.url(:medium), :class => 'avatar') %>
+    </figure>  
+    <h1>
+      <%= @status.user.nombre_completo %>
+    </h1>
+  </div>  
 </section>
+<section class="statusContenido">
+  <div class="page-header">
+    <h1><%= @status.title %></h1>
+  </div>
+  <p id="notice"><%= notice %></p>
 
-
-
-
-
-
-
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <figure class="avatar-contenedor avatar-user">
-    <%= image_tag(@status.user.avatar.url(:thumb), :class => 'avatar') %>
-  </figure> 
-  <%= @status.user.nombre_completo %>
-</p>
-
-<p>
-  <strong>Contenido:</strong>
-  <%= @status.contenido %>
-</p>
-<div class="img-principal">
-  <% if @status.imagen.url(:medium) == '/imagens/medium/missing.png' %>
-      <p>No hay imagen</p>
-    <% else %>
-        <%= image_tag(@status.imagen.url(:medium)) %>
+  <div class="row">
+    <div class="col-md-6">
+      <% if @status.photos.empty? %>
+      <p>Sin Galeria</p>
+      <% else %>
+      <div class="slider">
+        <div class="my-slider">
+          <ul>
+            <% @status.photos.each do |photo| %>
+              <li><%= image_tag photo.image.url(:original) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     <% end %>
-</div>
-<% if @status.photos.empty? %>
-  <p>Sin Galeria</p>
-  <% else %>
-  <div class="slider">
-    <div class="my-slider">
-      <ul>
-        <% @status.photos.each do |photo| %>
-          <li><%= image_tag photo.image.url(:original) %></li>
-        <% end %>
-      </ul>
+    </div>
+    <div class="col-md-6">
+      <p>
+        <%= @status.contenido %>
+      </p>
     </div>
   </div>
-<% end %>
-
-
-
-<% if user_signed_in? %>
-  <% if current_user.id == @status.user.id %>
-    <%= link_to 'Editar', edit_status_path(@status) %> |  
+  <% if user_signed_in? %>
+    <% if current_user.id == @status.user.id %>
+      <%= link_to 'Editar', edit_status_path(@status) %> |  
+    <% end %>
   <% end %>
-<% end %>
 
-<%= link_to 'Atrás', timeline_path %>
+  <%= link_to 'Atrás', timeline_path %>  
+</section>

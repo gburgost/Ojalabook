@@ -49,17 +49,34 @@
   padding: 0;
   border: none;
 }
+.unslider a:hover{
+  text-decoration: none;
+  color:white;
+}
 .unslider-arrow {
   position: absolute;
   left: 20px;
   z-index: 2;
   cursor: pointer;
+  top: 50%;
+  border-radius: 100%;
+  background: rgba(0,0,0,.5);
+  font-size: 20px;
+  padding: .5em;
+  color:white;
+  transition: .3s;
 }
+.unslider-arrow:hover {
+  left: 15px;
+}
+
 .unslider-arrow.next {
   left: auto;
   right: 20px;
 }
-
+.unslider-arrow.next:hover {
+  right: 15px;
+}
 .unslider-nav ol {
   list-style: none;
   text-align: center;

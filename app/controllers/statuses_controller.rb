@@ -61,8 +61,9 @@ class StatusesController < ApplicationController
   def destroy
     @status.destroy
     respond_to do |format|
-      format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js
+      # format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
+      # format.json { head :no_content }
     end
   end
 
@@ -74,6 +75,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:user_id, :contenido, :imagen, :photos)
+      params.require(:status).permit(:user_id, :contenido, :imagen, :photos, :title)
     end
 end

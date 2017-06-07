@@ -1,0 +1,37 @@
+<% @statuses.order("created_at desc").each do |status| %>
+<%= link_to(status) do %>
+  <div id="status_<%= status.id %>" class="status">
+    <div class="contenido-image">
+      <% if status.imagen.url(:thumb) == '/imagens/thumb/missing.png' %>
+        <p>No hay imagen</p>
+      <% else %>
+      <figure class="container-image">
+        <%= image_tag(status.imagen.url(:medium)) %>
+        <figcaption class="container-figcaption">
+          <h3><%= status.title %></h3>
+          <div class="name_user">
+          <figure class="avatar-contenedor avatar-user">
+            <%= image_tag(status.user.avatar.url(:thumb), :class=> 'avatar') %>
+          </figure>    
+          <small><%= status.user.nombre_completo %> - 
+            <%= link_to "Hace " + time_ago_in_words(status.created_at), status %>
+            </small>
+            <% if user_signed_in?%>
+              <% if status.user.id == current_user.id %>
+                <span class="admin">
+                  | <%= link_to '', edit_status_path(status),:class => 'btn btn-default  btn-sm glyphicon glyphicon-pencil' %> | 
+                    
+                  <% if can? :destroy, status %>
+                    <%= link_to ' ', status, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'small btn  btn-danger btn-sm glyphicon glyphicon-trash' %></span>
+                  <% end %>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+        </figcaption>
+      </figure>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+<% end %>

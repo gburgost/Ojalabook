@@ -1,7 +1,9 @@
-<h1>Resultados de busqueda</h1>
-<ul>
-<% @results.each do |result| %>
-  <li><%= result.contenido %></li>
-
+<div class="page-header">
+  <h1>Resultados de busqueda</h1>  
+</div>
+<% if @statuses.empty? %>
+  <p>No se han encontrado resultados.</p>
+  
+<% else%>
+  <%= render 'statuses/status' %>
 <% end %>
-</ul>
